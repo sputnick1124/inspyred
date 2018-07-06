@@ -298,10 +298,10 @@ def no_improvement_termination(population, num_generations, num_evaluations, arg
     
     Optional keyword arguments in args:
     
-    - *max_generations* -- the number of generations allowed for no change in fitness (default 10)
+    - *stagnant_generations* -- the number of generations allowed for no change in fitness (default 10)
     
     """
-    max_generations = args.setdefault('max_generations', 10)
+    stagnant_generations = args.setdefault('stagnant_generations', 10)
     previous_best = args.setdefault('previous_best', None)
     current_best = max(population).fitness
     if previous_best is None or previous_best != current_best:
@@ -309,7 +309,7 @@ def no_improvement_termination(population, num_generations, num_evaluations, arg
         args['generation_count'] = 0
         return False
     else:
-        if args['generation_count'] >= max_generations:
+        if args['generation_count'] >= stagnant_generations:
             return True
         else:
             args['generation_count'] += 1
